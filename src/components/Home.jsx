@@ -1,7 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-
+import axios from 'axios';
+import jwtDecode from 'jwt-decode';
 function Home( ) {
+    let baseUrl = "https://route-egypt-api.herokuapp.com/"
+    const [allNotes , setallNotes] = useState ([]);
+    let token = localStorage.getItem('token')
+    if (token)
+    {
+        var decoded = jwtDecode(token)
+    }
+    async function getallnotes ()
+    {
+        let {data} = await axios.get(baseUrl+'getUserNotes',{headers:{
+            token,userID:decoded._id
+        }})
+        setallNotes(data.Notes)
+    }
+    useEffect (()=>{
+        getallnotes ()
+    },[])
     return (
         <>
          <div className="container my-5 d-flex">
@@ -33,17 +51,20 @@ function Home( ) {
     </div>
     <div className="container">
         <div className="row">
-            <div className="col-md-4 my-4">
+        {allNotes?.map((value , index)=>{
+                return (
+                    <div key={value._id} className="col-md-4 my-4">
 
-                <div className="note p-4">
-                    <h3 className="float-left">Title </h3>
-                    <NavLink href="#"><i className="fas fa-edit float-right edit"></i></NavLink>
-                    <NavLink href="#"> <i className="fas fa-trash-alt float-right px-3 del"></i></NavLink>
-                    <span className="clearfix"></span>
-                    <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo numquam dolores eius asperiores ipsa nihil, itaque dicta et at deleniti esse saepe architecto neque necessitatibus quos, pariatur consequuntur maxime accusantium. </p>
+                    <div className="note p-4">
+                        <h3 className="float-left">title </h3>
+                        <NavLink href="#"><i className="fas fa-edit float-right edit"></i></NavLink>
+                        <NavLink href="#"> <i className="fas fa-trash-alt float-right px-3 del"></i></NavLink>
+                        <span className="clearfix"></span>
+                        <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo numquam dolores eius asperiores ipsa nihil, itaque dicta et at deleniti esse saepe architecto neque necessitatibus quos, pariatur consequuntur maxime accusantium. </p>
+                    </div>
                 </div>
-            </div>
-
+                )
+            } )}
         </div>
     </div>
     </>
