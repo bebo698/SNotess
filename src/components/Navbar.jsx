@@ -25,7 +25,7 @@ function Navbar( ) {
             {/* Note That ml = margin-left changed to ms-auto and mr= margin-right to me */}
                 <ul className="navbar-nav ms-auto ">
                     <li className="nav-item">
-                        <a className='nav-link'>Welcome {token ? decoded._id : "User" }</a>                    
+                        <a className='nav-link'>Welcome {token ? decoded.first_name : "User" }</a>                    
                     </li>
                     <li className="nav-item">
                         <NavLink onClick={logout} className="nav-link" to="/login">Logout</NavLink>

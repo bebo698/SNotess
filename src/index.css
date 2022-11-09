@@ -95,9 +95,21 @@ textarea {
     color: #fff;
     box-shadow: 0px 23px 93px 1px rgba(0, 0, 0, 0.75);
 }
+.addx {
+    font-family: 'Source Sans Pro', sans-serif;
+    /* background-color: #fff; */
+    font-size: 20px;
+    transition: 0.2s;
+    color: #fff;
+    box-shadow: 0px 23px 93px 1px rgba(0, 0, 0, 0.75);
+}
 
 .add:hover {
     background-color: #8BC34A;
+    color: #fff;
+}
+.addx:hover {
+    background-color: #e31b0d;
     color: #fff;
 }
 
